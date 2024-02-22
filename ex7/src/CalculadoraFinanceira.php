@@ -83,7 +83,7 @@ class CalculadoraFinanceira
                 throw new Exception("A informação passada não não aceita outros tipos");
             }
 
-            if (isset($capital, $taxa, $tempo) && is_numeric($capital) && $capital >= 0 && is_numeric($taxa) && $taxa >= 0 && is_numeric($tempo) && $tempo >= 0) {
+            if (isset($capital, $taxa, $tempo) && is_numeric($capital) && $capital > 0 && is_numeric($taxa) && $taxa >= 0 && is_numeric($tempo) && $tempo >= 0.1) {
 
                 if ($tipo === "SAC") {
 

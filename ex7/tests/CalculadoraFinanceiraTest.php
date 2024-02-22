@@ -18,7 +18,8 @@ class CalculadoraFinanceiraTest extends TestCase
 
                   Nome               ||   quantidade por teste principipal
         *Certo                       ||          1,    1,    2
-        *Extremo                     ||          1,    1,    2     
+        *Extremo                     ||          1,    1,    2   
+        *Zero                        ||          1,    1,    1  
         *String                      ||          1,    1,    1
         *Negativo                    ||          1,    1,    1
         *TipoIncorreto               ||          0,    0,    1
@@ -37,7 +38,7 @@ class CalculadoraFinanceiraTest extends TestCase
         .A informação passada não não aceita outros tipos - ERRO: 0
         .                                                       11 / 11 (100%)
 
-        OK (15 tests, 15 assertions)
+        OK (18 tests, 18 assertions)
     */
 
     #Testar Calcular Juros Simples (calcularJurosSimples)
@@ -54,9 +55,18 @@ class CalculadoraFinanceiraTest extends TestCase
     {
 
         $classeCalculadoraFinanceira = new CalculadoraFinanceira;
-        $jurosSimples = $classeCalculadoraFinanceira->calcularJurosSimples(1700007, 0.05, 22);
+        $jurosSimples = $classeCalculadoraFinanceira->calcularJurosSimples(1700007.1111, 0.05, 22);
 
-        $this->assertEquals(1870007.7, $jurosSimples);
+        $this->assertEquals(1870007.82, $jurosSimples);
+    }
+
+    public function testCalcularJurosSimplesZero()
+    {
+
+        $classeCalculadoraFinanceira = new CalculadoraFinanceira;
+        $jurosSimples = $classeCalculadoraFinanceira->calcularJurosSimples(0, 0.05, 3);
+
+        $this->assertEquals(0, $jurosSimples);
     }
 
     public function testCalcularJurosSimplesString()
@@ -93,8 +103,18 @@ class CalculadoraFinanceiraTest extends TestCase
     {
 
         $classeCalculadoraFinanceira = new CalculadoraFinanceira;
-        $jurosCompostos = $classeCalculadoraFinanceira->calcularJurosSimples(1700007, 0.05, 22);
-        $this->assertEquals( 1870007.7, $jurosCompostos);
+        $jurosCompostos = $classeCalculadoraFinanceira->calcularJurosSimples(1700007.1111, 0.05, 22);
+  
+        $this->assertEquals( 1870007.82, $jurosCompostos);
+    }
+
+    public function testCalcularJurosCompostosZero()
+    {
+
+        $classeCalculadoraFinanceira = new CalculadoraFinanceira;
+        $jurosCompostos = $classeCalculadoraFinanceira->calcularJurosCompostos(0, 0.05, 3);
+
+        $this->assertEquals(0, $jurosCompostos);
     }
 
     public function testCalcularJurosCompostosString()
@@ -138,9 +158,18 @@ class CalculadoraFinanceiraTest extends TestCase
     {
 
         $classeCalculadoraFinanceira = new CalculadoraFinanceira;
-        $amortizacao = $classeCalculadoraFinanceira->calcularAmortizacao(80000000, 0.04, 5, "SAC");
+        $amortizacao = $classeCalculadoraFinanceira->calcularAmortizacao(80000000.1111, 0.04, 5, "SAC");
 
-        $this->assertEquals([9600000, 64000000, 48000000, 32000000, 16000000, 0], $amortizacao);
+        $this->assertEquals([9600000.01, 64000000.09, 48000000.07, 32000000.04, 16000000.02, 0.0], $amortizacao);
+    }
+
+    public function testCalcularAmortizacaoZeroSAC()
+    {
+
+        $classeCalculadoraFinanceira = new CalculadoraFinanceira;
+        $amortizacao = $classeCalculadoraFinanceira->calcularAmortizacao(0, 0.04, 5, "SAC");
+
+        $this->assertEquals([], $amortizacao);
     }
 
     public function testCalcularAmortizacaoExtremoPrice()
