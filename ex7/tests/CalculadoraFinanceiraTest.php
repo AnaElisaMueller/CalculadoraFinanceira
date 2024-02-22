@@ -29,14 +29,14 @@ class CalculadoraFinanceiraTest extends TestCase
         *Code
 
     **Resultado de teste:
-        .A informação passada não é numérica - ERRO: 0
-        .A informação passada não pode ser menor que zero - ERRO: 0
-        ..A informação passada não é numérica - ERRO: 0
-        .A informação passada não pode ser menor que zero - ERRO: 0
         ...A informação passada não é numérica - ERRO: 0
         .A informação passada não pode ser menor que zero - ERRO: 0
+        ....A informação passada não é numérica - ERRO: 0
+        .A informação passada não pode ser menor que zero - ERRO: 0
+        ......A informação passada não é numérica - ERRO: 0
+        .A informação passada não pode ser menor que zero - ERRO: 0
         .A informação passada não não aceita outros tipos - ERRO: 0
-        .                                                       11 / 11 (100%)
+        .                                                18 / 18 (100%)
 
         OK (18 tests, 18 assertions)
     */
@@ -103,9 +103,8 @@ class CalculadoraFinanceiraTest extends TestCase
     {
 
         $classeCalculadoraFinanceira = new CalculadoraFinanceira;
-        $jurosCompostos = $classeCalculadoraFinanceira->calcularJurosSimples(1700007.1111, 0.05, 22);
-  
-        $this->assertEquals( 1870007.82, $jurosCompostos);
+        $jurosCompostos = $classeCalculadoraFinanceira->calcularJurosCompostos(1700007.1111, 0.05, 22);
+        $this->assertEquals(3272956.91, $jurosCompostos);
     }
 
     public function testCalcularJurosCompostosZero()
@@ -163,15 +162,6 @@ class CalculadoraFinanceiraTest extends TestCase
         $this->assertEquals([9600000.01, 64000000.09, 48000000.07, 32000000.04, 16000000.02, 0.0], $amortizacao);
     }
 
-    public function testCalcularAmortizacaoZeroSAC()
-    {
-
-        $classeCalculadoraFinanceira = new CalculadoraFinanceira;
-        $amortizacao = $classeCalculadoraFinanceira->calcularAmortizacao(0, 0.04, 5, "SAC");
-
-        $this->assertEquals([], $amortizacao);
-    }
-
     public function testCalcularAmortizacaoExtremoPrice()
     {
 
@@ -179,6 +169,15 @@ class CalculadoraFinanceiraTest extends TestCase
         $amortizacao = $classeCalculadoraFinanceira->calcularAmortizacao(80000000, 0.05, 5, "Price");
 
         $this->assertEquals([12389919.25, 65522016.15, 50320133.11, 34358155.91, 17598079.86, 0.0], $amortizacao);
+    }
+
+    public function testCalcularAmortizacaoZeroSAC()
+    {
+
+        $classeCalculadoraFinanceira = new CalculadoraFinanceira;
+        $amortizacao = $classeCalculadoraFinanceira->calcularAmortizacao(0, 0.04, 5, "SAC");
+
+        $this->assertEquals([], $amortizacao);
     }
 
     public function testCalcularAmortizacaoString()

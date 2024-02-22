@@ -21,7 +21,7 @@ class CalculadoraFinanceira
                 throw new Exception("A informação passada não pode ser menor que zero");
             }
 
-            if (isset($capital, $taxa, $tempo) && is_numeric($capital) && $capital >= 0 && is_numeric($taxa) && $taxa >= 0 && is_numeric($tempo) && $tempo >= 0) {
+            if (isset($capital, $taxa, $tempo) && is_numeric($capital) && $capital > 0 && is_numeric($taxa) && $taxa >= 0 && is_numeric($tempo) && $tempo >= 0) {
                 $this->jurosSimples = $capital * $taxa * $tempo;
             }
             return round($this->jurosSimples, 2);
@@ -49,7 +49,7 @@ class CalculadoraFinanceira
                 throw new Exception("A informação passada não pode ser menor que zero");
             }
 
-            if (isset($capital, $taxa, $tempo) && is_numeric($capital) && $capital >= 0 && is_numeric($taxa) && $taxa >= 0 && is_numeric($tempo) && $tempo >= 0) {
+            if (isset($capital, $taxa, $tempo) && is_numeric($capital) && $capital > 0 && is_numeric($taxa) && $taxa >= 0 && is_numeric($tempo) && $tempo >= 0.1) {
                 $montante = pow((1 + $taxa), $tempo) * $capital;
                 $this->jurosCompostos = $montante - $capital;
                 
